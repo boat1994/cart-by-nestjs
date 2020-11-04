@@ -1,17 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { CartItemEntity } from './cart-items.entity';
 
-@Entity()
+@Entity('carts')
 export class CartEntity {
 
     @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({ length: 25 })
-    fullName:string;
-
-    @Column('date') 
-    birthday:Date;
+    id: number
 
     @Column() 
-    isActive:boolean;
+    price: number
+
+    @OneToMany(() => CartItemEntity, cartItem => cartItem.cart)
+    items: CartItemEntity[]
 }
