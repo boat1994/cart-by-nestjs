@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { ProductsEntity } from 'src/products/products.entity';
+import { Product } from 'src/products/products.entity';
 import { Repository } from 'typeorm';
 import { CreateCartDto } from './dto';
 
@@ -9,8 +9,8 @@ import { CreateCartDto } from './dto';
 export class CartService {
 
     constructor(
-        @InjectRepository(ProductsEntity)
-        private readonly productRepository: Repository<ProductsEntity>
+        @InjectRepository(Product)
+        private readonly productRepository: Repository<Product>
     ) {}
 
     async getCartById(id: string) {
@@ -30,7 +30,7 @@ export class CartService {
         const { product_id, qty } = createCartDto
      
         try {
-           const product: ProductsEntity = await this.productRepository.findOneOrFail(product_id)
+           const product: Product = await this.productRepository.findOneOrFail(product_id)
 
            if (product.qty < qty) {
                throw new NotAcceptableException("insufficient stock")

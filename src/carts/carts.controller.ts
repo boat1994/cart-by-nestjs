@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 
-import { CartService } from './cart.service';
+import { CartService } from './carts.service';
 import { CreateCartDto } from './dto'
 
 @Controller('cart')
