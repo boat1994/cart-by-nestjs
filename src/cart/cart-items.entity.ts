@@ -3,7 +3,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
@@ -21,7 +20,7 @@ export class CartItem {
   @JoinColumn()
   product: Product;
 
-  @OneToOne(() => Cart)
+  @ManyToOne(() => Cart)
   @JoinColumn()
   cart: Cart;
 }

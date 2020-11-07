@@ -1,15 +1,17 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
+  Put,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { CartDto } from './dto/cart.dto';
 
 import { CartService } from './cart.service';
-import { CreateCartDto } from './dto';
 
 @Controller('cart')
 export class CartController {
@@ -22,7 +24,18 @@ export class CartController {
 
   @UsePipes(new ValidationPipe())
   @Post('/')
-  async createCart(@Body() createCartDto: CreateCartDto) {
-    return await this.cartService.createCart(createCartDto);
+  async createCart(@Body() cartDto: CartDto) {
+    return await this.cartService.createCart(cartDto);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @Put('/:id')
+  async updateCartItem(@Param() param, @Body() cartDto: CartDto) {
+    return await this.cartService.updateCartItem(param.id, cartDto);
+  }
+
+  @Delete('/:id/items/:item_id')
+  async deleteCartItem(@Param() param) {
+    return await this.cartService.deleteCartItem(param.id, param.item_id);
   }
 }
