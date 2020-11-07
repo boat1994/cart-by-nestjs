@@ -4,10 +4,6 @@ import { CartModule } from './cart/cart.module';
 import { ProductsModule } from './products/products.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(),
-    CartModule, 
-    ProductsModule,
-  ]
-})  
+  imports: [TypeOrmModule.forRoot(), CartModule, ProductsModule],
+})
 export class AppModule {}

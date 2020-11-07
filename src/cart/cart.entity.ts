@@ -3,13 +3,15 @@ import { CartItem } from './cart-items.entity';
 
 @Entity('carts')
 export class Cart {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column()
+  price: number;
 
-    @Column() 
-    price: number
-
-    @OneToMany(() => CartItem, cartItem => cartItem.cart)
-    items: CartItem[]
+  @OneToMany(
+    () => CartItem,
+    cartItem => cartItem.cart,
+  )
+  items: CartItem[];
 }

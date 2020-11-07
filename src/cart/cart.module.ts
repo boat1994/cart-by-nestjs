@@ -7,12 +7,8 @@ import { Cart } from './cart.entity';
 import { CartService } from './cart.service';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([Cart, Product])
-    ],
-    controllers: [CartController],
-    providers: [CartService],
+  imports: [TypeOrmModule.forFeature([Cart, Product])],
+  controllers: [CartController],
+  providers: [CartService],
 })
-export class CartModule {
- 
-}
+export class CartModule {}

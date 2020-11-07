@@ -6,28 +6,31 @@ import { Product } from './products.entity';
 
 @Injectable()
 export class ProductsService {
+  constructor(
+    @InjectRepository(Product)
+    private readonly productRepository: Repository<Product>,
+  ) {}
 
-    constructor(
-        @InjectRepository(Product)
-        private readonly productRepository: Repository<Product>
-    ) {}
+  get(): Promise<Product[]> {
+    return this.productRepository.find();
+  }
 
-    get(): Promise<Product[]> {
-        return this.productRepository.find()
+  async create(createProductDto: CreateProductDto): Promise<Product> {
+    const existsProduct: Product = await this.productRepository.findOne({
+      code: createProductDto.code,
+    });
+
+    if (existsProduct) {
+      throw new HttpException(
+        { message: `The product code "${createProductDto.code}" is exists.` },
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
-    async create(createProductDto: CreateProductDto): Promise<Product> {
+    return this.productRepository.save(createProductDto);
+  }
 
-        const existsProduct: Product = await this.productRepository.findOne({code: createProductDto.code})
-
-        if (existsProduct) {
-            throw new HttpException({message: `The product code "${createProductDto.code}" is exists.`}, HttpStatus.BAD_REQUEST)
-        }
-        
-        return this.productRepository.save(createProductDto)
-    }
-
-    delete(id: number): Promise<DeleteResult> {
-        return  this.productRepository.delete(id);
-    }
+  delete(id: number): Promise<DeleteResult> {
+    return this.productRepository.delete(id);
+  }
 }
