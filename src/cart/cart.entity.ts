@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { CartItemEntity } from './cart-items.entity';
+import { CartItem } from './cart-items.entity';
 
 @Entity('carts')
-export class CartEntity {
+export class Cart {
 
     @PrimaryGeneratedColumn()
     id: number
@@ -10,6 +10,6 @@ export class CartEntity {
     @Column() 
     price: number
 
-    @OneToMany(() => CartItemEntity, cartItem => cartItem.cart)
-    items: CartItemEntity[]
+    @OneToMany(() => CartItem, cartItem => cartItem.cart)
+    items: CartItem[]
 }

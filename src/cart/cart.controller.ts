@@ -15,7 +15,7 @@ export class CartController {
 
     @UsePipes(new ValidationPipe())
     @Post('/')
-    async createCart(@Body() cartData: CreateCartDto) {
-        return await this.cartService.createCart(cartData); 
+    async createCart(@Body() createCartDto: CreateCartDto) {
+        return await this.cartService.createCart(createCartDto); 
     }
 }
