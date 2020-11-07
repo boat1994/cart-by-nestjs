@@ -2,23 +2,23 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
-import { Product } from './products.entity';
+import { ProductsEntity } from './products.entity';
 
 @Injectable()
 export class ProductsService {
 
     constructor(
-        @InjectRepository(Product)
-        private readonly productRepository: Repository<Product>
+        @InjectRepository(ProductsEntity)
+        private readonly productRepository: Repository<ProductsEntity>
     ) {}
 
-    get(): Promise<Product[]> {
+    get(): Promise<ProductsEntity[]> {
         return this.productRepository.find()
     }
 
-    async create(createProductDto: CreateProductDto): Promise<Product> {
+    async create(createProductDto: CreateProductDto): Promise<ProductsEntity> {
 
-        const existsProduct: Product = await this.productRepository.findOne({code: createProductDto.code})
+        const existsProduct: ProductsEntity = await this.productRepository.findOne({code: createProductDto.code})
 
         if (existsProduct) {
             throw new HttpException({message: `The product code "${createProductDto.code}" is exists.`}, HttpStatus.BAD_REQUEST)

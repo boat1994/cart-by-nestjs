@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
+import { ProductsEntity } from './products.entity';
 import { ProductsService } from './products.service';
 
 @Controller('products')
